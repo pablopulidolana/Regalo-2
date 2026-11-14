@@ -1,0 +1,303 @@
+:root {
+    --bg-color: #080c14;
+    --glow-color: rgba(56, 133, 255, 0.14);
+    --box-main: #1e293b;
+    --box-dark: #0f172a;
+    --ribbon-gold: #fcd34d;
+    --ribbon-shadow: #d97706;
+    --text-primary: #f0f4f8;
+    --text-secondary: #8da4c4;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    font-family: 'Montserrat', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.background-glow {
+    position: absolute;
+    width: 620px;
+    height: 620px;
+    background: radial-gradient(circle, var(--glow-color) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    animation: pulseGlow 5s infinite alternate ease-in-out;
+}
+
+.sparkles-container {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 20;
+}
+
+.scene {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
+}
+
+.instruction {
+    position: absolute;
+    top: 15%;
+    font-size: 0.9rem;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    animation: fadePulse 2s infinite ease-in-out;
+    transition: opacity 0.5s ease;
+}
+
+.instruction.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Contenedor principal de la caja */
+.gift-wrapper {
+    position: relative;
+    width: 220px;
+    height: 220px;
+    margin-top: 80px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    animation: gentleShake 2.8s infinite ease-in-out;
+}
+
+.gift-wrapper.opened {
+    animation: none;
+    cursor: default;
+}
+
+/* Base de la caja */
+.gift-box {
+    position: relative;
+    width: 190px;
+    height: 145px;
+    background: linear-gradient(145deg, var(--box-main), var(--box-dark));
+    border-radius: 0 0 12px 12px;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.65), inset 0 2px 10px rgba(255, 255, 255, 0.06);
+    z-index: 10;
+    overflow: hidden;
+    border: 1px solid rgba(252, 211, 77, 0.18);
+}
+
+.box-ribbon-vertical {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 32px;
+    height: 100%;
+    background: linear-gradient(90deg, var(--ribbon-shadow), var(--ribbon-gold), var(--ribbon-shadow));
+}
+
+.box-ribbon-horizontal {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    height: 28px;
+    background: linear-gradient(180deg, var(--ribbon-shadow), var(--ribbon-gold), var(--ribbon-shadow));
+    opacity: 0.9;
+}
+
+/* Tapa de la caja */
+.gift-lid {
+    position: absolute;
+    bottom: 140px;
+    width: 210px;
+    height: 38px;
+    background: linear-gradient(145deg, #27354d, #131c2e);
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    z-index: 12;
+    border: 1px solid rgba(252, 211, 77, 0.25);
+    transition: transform 0.9s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.7s ease 0.35s;
+}
+
+.lid-ribbon {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 34px;
+    height: 100%;
+    background: linear-gradient(90deg, var(--ribbon-shadow), var(--ribbon-gold), var(--ribbon-shadow));
+}
+
+/* Lazo superior */
+.bow {
+    position: absolute;
+    top: -34px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 110px;
+    height: 40px;
+    transition: transform 0.5s ease, opacity 0.4s ease;
+}
+
+.bow-loop {
+    position: absolute;
+    width: 48px;
+    height: 34px;
+    border: 7px solid var(--ribbon-gold);
+    border-radius: 50% 50% 0 50%;
+    top: 4px;
+    box-shadow: 0 4px 12px rgba(252, 211, 77, 0.3);
+}
+
+.bow-loop.left {
+    left: 6px;
+    transform: rotate(-18deg);
+}
+
+.bow-loop.right {
+    right: 6px;
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(18deg);
+}
+
+.bow-knot {
+    position: absolute;
+    left: 50%;
+    top: 16px;
+    transform: translateX(-50%);
+    width: 22px;
+    height: 22px;
+    background: var(--ribbon-gold);
+    border-radius: 50%;
+    box-shadow: 0 0 10px rgba(217, 119, 6, 0.8);
+}
+
+/* Animación de apertura */
+.gift-wrapper.opened .bow {
+    transform: translateX(-50%) scale(1.25) translateY(-10px);
+    opacity: 0;
+}
+
+.gift-wrapper.opened .gift-lid {
+    transform: translateY(-170px) rotate(-18deg) translateX(-40px);
+    opacity: 0;
+}
+
+/* Osito de peluche */
+.teddy-bear {
+    position: absolute;
+    bottom: 25px;
+    width: 210px;
+    height: 230px;
+    z-index: 8;
+    transform: translateY(80px) scale(0.55);
+    opacity: 0;
+    transition: transform 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.25s, opacity 0.5s ease 0.25s;
+    pointer-events: none;
+}
+
+.gift-wrapper.opened .teddy-bear {
+    transform: translateY(-105px) scale(1.08);
+    opacity: 1;
+    z-index: 15;
+}
+
+.bear-svg {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.55));
+}
+
+.heart-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 21px;
+    font-weight: 600;
+    font-style: italic;
+    letter-spacing: 0.5px;
+}
+
+.held-heart {
+    transform-origin: 110px 150px;
+    animation: heartPulse 2s infinite ease-in-out;
+}
+
+/* Texto final inferior */
+.final-caption {
+    margin-top: 38px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-style: italic;
+    color: var(--ribbon-gold);
+    text-shadow: 0 0 20px rgba(252, 211, 77, 0.35);
+    opacity: 0;
+    transform: translateY(15px);
+    transition: opacity 1s ease 0.9s, transform 1s ease 0.9s;
+}
+
+.final-caption.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Partículas mágicas */
+.sparkle {
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--ribbon-gold);
+    box-shadow: 0 0 10px var(--ribbon-gold);
+    pointer-events: none;
+    animation: flySparkle 1.2s ease-out forwards;
+}
+
+@keyframes gentleShake {
+    0%, 100% { transform: rotate(0deg); }
+    20% { transform: rotate(-2.5deg); }
+    40% { transform: rotate(2.5deg); }
+    60% { transform: rotate(-1.5deg); }
+    80% { transform: rotate(1.5deg); }
+}
+
+@keyframes heartPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.06); }
+}
+
+@keyframes fadePulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
+@keyframes pulseGlow {
+    0% { transform: scale(0.9); opacity: 0.7; }
+    100% { transform: scale(1.15); opacity: 1; }
+}
+
+@keyframes flySparkle {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(var(--tx), var(--ty)) scale(0);
+        opacity: 0;
+    }
+}
